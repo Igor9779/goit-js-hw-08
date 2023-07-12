@@ -11,10 +11,15 @@ refs.textarea.addEventListener('input', onTextareaInput);
 
 function onFormSubmit(e) {
     e.preventDefault();
+    const {
+        elements: {email, message }
+} = e.currentTarget;
     e.currentTarget.reset();
 };
 
 function onTextareaInput(e) {
-    const message = e.currentTarget.value;
+    const {
+        elements: {email, message }
+} = e.currentTarget;
     localStorage.setItem('feedback-form-state', message);
 };
