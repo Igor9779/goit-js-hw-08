@@ -21,16 +21,13 @@ function updateTime() {
 
 const throttledUpdateTime = throttle(updateTime, 1000);
 
-player.setCurrentTime(36.456).then(function (seconds) {
-    console.log('The alarm position is set to ', seconds, 'seconds');
-}).catch(function(error) {
-    switch (error.name) {
-        case 'RangeError':
-            break;
+const saveTimeVideo = localStorage.getItem('videoplayer-current-time');
+if (saveTimeVideo) {
+    player.setCurrentTime(saveTimeVideo).then(function (seconds) {
+        console.log('The alarm position is set to ', seconds, 'seconds');
+    }).catch(function (error) {
+        // console.log('Error setting the current time:', error);
+    });
+};
 
-        default:
-            break;
-    }
-});
-
-
+player.on('timeupdate', throttledUpdateTime);
